@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <!--<script src="/jquery/1.12.4/jquery.js"></script>-->
+        <script>
+//            var layoutRegexp = new RegExp("/^layout=\[\w+\]/");
+//            var r = layoutRegexp.exec('layout=[aa]');
+//            console.log(r);
+            
+            console.log("-------------");
+            var query = location.search;
+            
+            console.log("a:" + query);
+            query = query.slice(1);
+            console.log("b:" + query);
+            
+            var params = query.split('&');
+            for(var i = 0; params[i]; i++) {
+                console.log(i + ":" + params[i]);
+                var decoded = decodeURI(params[i]);
+                console.log("decoded:" + decoded);
+                var isLayoutFound = decoded.startsWith('layout=[') && decoded.endsWith(']');
+                if(isLayoutFound) {
+                    console.log("found layout info");
+                    var replaced = decoded.replace(/%2C/g, ',');
+                    console.log("replaced:" + replaced);
+                    var jsonStr = replaced.slice(7);
+                    console.log("jsonStr:" + jsonStr);
+                    var json = JSON.parse(jsonStr);
+                    console.log(json);
+                } else {
+                    console.log("not found");
+                }
+            }
+        </script>
+    </body>
+</html>
